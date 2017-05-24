@@ -97,9 +97,9 @@ void draw() {
       // update X coordinate
       circles.get(i)[0] += circles.get(i)[3];
       // update Y coordinate
-      //circles.get(i)[1] += circles.get(i)[4];
+      circles.get(i)[1] += circles.get(i)[4];
       // update Z coordinate
-      //circles.get(i)[2] += circles.get(i)[5];
+      circles.get(i)[2] += circles.get(i)[5];
       
       //if (hasCollided(circles.get(i))) {
       //  System.out.print("collision!!");
@@ -112,33 +112,117 @@ void draw() {
         // distance
         float dis = sqrt(pow(circles.get(i)[0] - circles.get(j)[0], 2) + pow(circles.get(i)[1] - circles.get(j)[1], 2) + pow(circles.get(i)[2] - circles.get(j)[2], 2));
         if (dis <= 60) {
-          // collided
+          // collision, update directions
+          
+          // update x
           if (circles.get(i)[3] * circles.get(j)[3] < 0) {
-            // opposite directions
-            circles.get(i)[3] *= -1;
-            circles.get(j)[3] *= -1;
+            // opposite directions, swaps speeds
+            int tempSpeed = circles.get(i)[3];
+            circles.get(i)[3] = circles.get(j)[3];
+            circles.get(j)[3] = tempSpeed;
+            if (circles.get(i)[3] < 0) {
+              circles.get(i)[0] -= int((60-dis)/2) + 1;
+              circles.get(j)[0] += int((60-dis)/2) + 1;
+            } else {
+              circles.get(i)[0] += int((60-dis)/2) + 1;
+              circles.get(j)[0] -= int((60-dis)/2) + 1;
+            }
           } else {
             // same direction
             if (circles.get(i)[3] > circles.get(j)[3]) {
               // i hits j
               circles.get(i)[3] -= circles.get(j)[3];
               circles.get(j)[3] += circles.get(i)[3] + circles.get(j)[3];
+              if (circles.get(i)[3] < 0) {
+                circles.get(j)[0] -= int(60-dis) + 1;
+              } else {
+                circles.get(j)[0] += int(60-dis) + 1;
+              }
             } else {
               // j hits i
               circles.get(j)[3] -= circles.get(i)[3];
               circles.get(i)[3] += circles.get(j)[3] + circles.get(i)[3];
+              if (circles.get(j)[3] < 0) {
+                circles.get(i)[0] -= int(60-dis) + 1;
+              } else {
+                circles.get(i)[0] += int(60-dis) + 1;
+              }
             }
           }
           
-          //int temp_x = circles.get(i)[3];
-          //int temp_y = circles.get(i)[4];
-          //int temp_z = circles.get(i)[5];
-          //circles.get(i)[3] += circles.get(j)[3];
-          //circles.get(i)[4] += circles.get(j)[4];
-          //circles.get(i)[5] += circles.get(j)[5];
-          //circles.get(j)[3] += temp_x;
-          //circles.get(j)[4] += temp_y;
-          //circles.get(j)[5] += temp_z;
+          
+          // update y
+          if (circles.get(i)[4] * circles.get(j)[4] < 0) {
+            // opposite directions, swaps speeds
+            int tempSpeed = circles.get(i)[4];
+            circles.get(i)[4] = circles.get(j)[4];
+            circles.get(j)[4] = tempSpeed;
+            if (circles.get(i)[4] < 0) {
+              circles.get(i)[1] -= int((60-dis)/2) + 1;
+              circles.get(j)[1] += int((60-dis)/2) + 1;
+            } else {
+              circles.get(i)[1] += int((60-dis)/2) + 1;
+              circles.get(j)[1] -= int((60-dis)/2) + 1;
+            }
+          } else {
+            // same direction
+            if (circles.get(i)[4] > circles.get(j)[4]) {
+              // i hits j
+              circles.get(i)[4] -= circles.get(j)[4];
+              circles.get(j)[4] += circles.get(i)[4] + circles.get(j)[3];
+              if (circles.get(i)[4] < 0) {
+                circles.get(j)[1] -= int(60-dis) + 1;
+              } else {
+                circles.get(j)[1] += int(60-dis) + 1;
+              }
+            } else {
+              // j hits i
+              circles.get(j)[4] -= circles.get(i)[4];
+              circles.get(i)[4] += circles.get(j)[4] + circles.get(i)[3];
+              if (circles.get(j)[4] < 0) {
+                circles.get(i)[1] -= int(60-dis) + 1;
+              } else {
+                circles.get(i)[1] += int(60-dis) + 1;
+              }
+            }
+          }
+          
+          
+          // update z
+          if (circles.get(i)[5] * circles.get(j)[5] < 0) {
+            // opposite directions, swaps speeds
+            int tempSpeed = circles.get(i)[4];
+            circles.get(i)[5] = circles.get(j)[5];
+            circles.get(j)[5] = tempSpeed;
+            if (circles.get(i)[5] < 0) {
+              circles.get(i)[2] -= int((60-dis)/2) + 1;
+              circles.get(j)[2] += int((60-dis)/2) + 1;
+            } else {
+              circles.get(i)[2] += int((60-dis)/2) + 1;
+              circles.get(j)[2] -= int((60-dis)/2) + 1;
+            }
+          } else {
+            // same direction
+            if (circles.get(i)[5] > circles.get(j)[5]) {
+              // i hits j
+              circles.get(i)[5] -= circles.get(j)[5];
+              circles.get(j)[5] += circles.get(i)[5] + circles.get(j)[3];
+              if (circles.get(i)[5] < 0) {
+                circles.get(j)[2] -= int(60-dis) + 1;
+              } else {
+                circles.get(j)[2] += int(60-dis) + 1;
+              }
+            } else {
+              // j hits i
+              circles.get(j)[5] -= circles.get(i)[5];
+              circles.get(i)[5] += circles.get(j)[5] + circles.get(i)[3];
+              if (circles.get(j)[5] < 0) {
+                circles.get(i)[2] -= int(60-dis) + 1;
+              } else {
+                circles.get(i)[2] += int(60-dis) + 1;
+              }
+            }
+          }
           
         }
       }
