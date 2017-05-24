@@ -1,5 +1,6 @@
 ArrayList<int[]> circles = new ArrayList<int[]>();
 int rear = -400;
+int radius = 30;
 
 
 void setup() {
@@ -48,6 +49,23 @@ int[] bounceOffWalls(int[] circle) {
 }
 
 
+boolean xCollision(int[] circle) {
+  return true;
+}
+
+boolean yCollision(int[] circle) {
+  return true;
+}
+
+boolean zCollision(int[] circle) {
+  return true;
+}
+
+boolean hasCollided(int[] circle) {
+  return xCollision(circle) || yCollision(circle) || zCollision(circle);
+}
+
+
 void draw() {
   drawBox();
   ArrayList<Integer> colors = new ArrayList<Integer>();
@@ -74,16 +92,56 @@ void draw() {
       
       translate(circles.get(i)[0], circles.get(i)[1], circles.get(i)[2]);
       fill(circles.get(i)[6], circles.get(i)[7], circles.get(i)[8]);
-      sphere(30);
+      sphere(radius);
       
       // update X coordinate
       circles.get(i)[0] += circles.get(i)[3];
       // update Y coordinate
-      circles.get(i)[1] += circles.get(i)[4];
+      //circles.get(i)[1] += circles.get(i)[4];
       // update Z coordinate
-      circles.get(i)[2] += circles.get(i)[5];
+      //circles.get(i)[2] += circles.get(i)[5];
+      
+      //if (hasCollided(circles.get(i))) {
+      //  System.out.print("collision!!");
+      //}
       
       popMatrix();
+      
+      // handle collision between balls
+      for (int j = i + 1; j < circles.size(); j++) {
+        // distance
+        float dis = sqrt(pow(circles.get(i)[0] - circles.get(j)[0], 2) + pow(circles.get(i)[1] - circles.get(j)[1], 2) + pow(circles.get(i)[2] - circles.get(j)[2], 2));
+        if (dis <= 60) {
+          // collided
+          if (circles.get(i)[3] * circles.get(j)[3] < 0) {
+            // opposite directions
+            circles.get(i)[3] *= -1;
+            circles.get(j)[3] *= -1;
+          } else {
+            // same direction
+            if (circles.get(i)[3] > circles.get(j)[3]) {
+              // i hits j
+              circles.get(i)[3] -= circles.get(j)[3];
+              circles.get(j)[3] += circles.get(i)[3] + circles.get(j)[3];
+            } else {
+              // j hits i
+              circles.get(j)[3] -= circles.get(i)[3];
+              circles.get(i)[3] += circles.get(j)[3] + circles.get(i)[3];
+            }
+          }
+          
+          //int temp_x = circles.get(i)[3];
+          //int temp_y = circles.get(i)[4];
+          //int temp_z = circles.get(i)[5];
+          //circles.get(i)[3] += circles.get(j)[3];
+          //circles.get(i)[4] += circles.get(j)[4];
+          //circles.get(i)[5] += circles.get(j)[5];
+          //circles.get(j)[3] += temp_x;
+          //circles.get(j)[4] += temp_y;
+          //circles.get(j)[5] += temp_z;
+          
+        }
+      }
     }
   }
 }
@@ -91,6 +149,6 @@ void draw() {
 
 void mouseReleased() {
   // xStart, yStart, zStart, xSpeed, ySpeed, zSpeed, redVal, greenVal, blueVal
-  int[] circle = {mouseX, mouseY, -400, int(random(-15, 15)), int(random(-15, 100)), int(random(-15, 15)), int(random(0, 255)), int(random(0, 255)), int(random(0, 255)), };
+  int[] circle = {mouseX, mouseY, -400, int(random(-15, 15)), int(random(-15, 15)), int(random(-15, 15)), int(random(0, 255)), int(random(0, 255)), int(random(0, 255)), };
   circles.add(circle);
 }
