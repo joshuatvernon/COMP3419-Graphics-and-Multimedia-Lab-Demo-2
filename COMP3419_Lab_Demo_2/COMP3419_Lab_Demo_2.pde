@@ -1,4 +1,4 @@
-ArrayList<int[]> circles = new ArrayList<int[]>();
+ArrayList<int[]> dragonballs = new ArrayList<int[]>();
 int rear = -400;
 int radius = 30;
 
@@ -50,122 +50,122 @@ int[] bounceOffWalls(int[] circle) {
 
 
 void addGravity(int i) {
-  circles.get(i)[4] += 10; 
+  dragonballs.get(i)[4] += 10; 
 }
 
 
 void handleCollisions(int i) {
   // handle collision between balls
-  for (int j = i + 1; j < circles.size(); j++) {
+  for (int j = i + 1; j < dragonballs.size(); j++) {
     // distance
-    float dis = sqrt(pow(circles.get(i)[0] - circles.get(j)[0], 2) + pow(circles.get(i)[1] - circles.get(j)[1], 2) + pow(circles.get(i)[2] - circles.get(j)[2], 2));
+    float dis = sqrt(pow(dragonballs.get(i)[0] - dragonballs.get(j)[0], 2) + pow(dragonballs.get(i)[1] - dragonballs.get(j)[1], 2) + pow(dragonballs.get(i)[2] - dragonballs.get(j)[2], 2));
     if (dis <= 60) {
       // collision, update directions
       
       // update x
-      if (circles.get(i)[3] * circles.get(j)[3] < 0) {
+      if (dragonballs.get(i)[3] * dragonballs.get(j)[3] < 0) {
         // opposite directions, swaps speeds
-        int tempSpeed = circles.get(i)[3];
-        circles.get(i)[3] = circles.get(j)[3];
-        circles.get(j)[3] = tempSpeed;
-        if (circles.get(i)[3] < 0) {
-          circles.get(i)[0] -= int((60-dis)/2) + 1;
-          circles.get(j)[0] += int((60-dis)/2) + 1;
+        int tempSpeed = dragonballs.get(i)[3];
+        dragonballs.get(i)[3] = dragonballs.get(j)[3];
+        dragonballs.get(j)[3] = tempSpeed;
+        if (dragonballs.get(i)[3] < 0) {
+          dragonballs.get(i)[0] -= int((60-dis)/2) + 1;
+          dragonballs.get(j)[0] += int((60-dis)/2) + 1;
         } else {
-          circles.get(i)[0] += int((60-dis)/2) + 1;
-          circles.get(j)[0] -= int((60-dis)/2) + 1;
+          dragonballs.get(i)[0] += int((60-dis)/2) + 1;
+          dragonballs.get(j)[0] -= int((60-dis)/2) + 1;
         }
       } else {
         // same direction
-        if (circles.get(i)[3] > circles.get(j)[3]) {
+        if (dragonballs.get(i)[3] > dragonballs.get(j)[3]) {
           // i hits j
-          circles.get(i)[3] -= circles.get(j)[3];
-          circles.get(j)[3] += circles.get(i)[3] + circles.get(j)[3];
-          if (circles.get(i)[3] < 0) {
-            circles.get(j)[0] -= int(60-dis) + 1;
+          dragonballs.get(i)[3] -= dragonballs.get(j)[3];
+          dragonballs.get(j)[3] += dragonballs.get(i)[3] + dragonballs.get(j)[3];
+          if (dragonballs.get(i)[3] < 0) {
+            dragonballs.get(j)[0] -= int(60-dis) + 1;
           } else {
-            circles.get(j)[0] += int(60-dis) + 1;
+            dragonballs.get(j)[0] += int(60-dis) + 1;
           }
         } else {
           // j hits i
-          circles.get(j)[3] -= circles.get(i)[3];
-          circles.get(i)[3] += circles.get(j)[3] + circles.get(i)[3];
-          if (circles.get(j)[3] < 0) {
-            circles.get(i)[0] -= int(60-dis) + 1;
+          dragonballs.get(j)[3] -= dragonballs.get(i)[3];
+          dragonballs.get(i)[3] += dragonballs.get(j)[3] + dragonballs.get(i)[3];
+          if (dragonballs.get(j)[3] < 0) {
+            dragonballs.get(i)[0] -= int(60-dis) + 1;
           } else {
-            circles.get(i)[0] += int(60-dis) + 1;
+            dragonballs.get(i)[0] += int(60-dis) + 1;
           }
         }
       }
       
       // update y
-      if (circles.get(i)[4] * circles.get(j)[4] < 0) {
+      if (dragonballs.get(i)[4] * dragonballs.get(j)[4] < 0) {
         // opposite directions, swaps speeds
-        int tempSpeed = circles.get(i)[4];
-        circles.get(i)[4] = circles.get(j)[4];
-        circles.get(j)[4] = tempSpeed;
-        if (circles.get(i)[4] < 0) {
-          circles.get(i)[1] -= int((60-dis)/2) + 1;
-          circles.get(j)[1] += int((60-dis)/2) + 1;
+        int tempSpeed = dragonballs.get(i)[4];
+        dragonballs.get(i)[4] = dragonballs.get(j)[4];
+        dragonballs.get(j)[4] = tempSpeed;
+        if (dragonballs.get(i)[4] < 0) {
+          dragonballs.get(i)[1] -= int((60-dis)/2) + 1;
+          dragonballs.get(j)[1] += int((60-dis)/2) + 1;
         } else {
-          circles.get(i)[1] += int((60-dis)/2) + 1;
-          circles.get(j)[1] -= int((60-dis)/2) + 1;
+          dragonballs.get(i)[1] += int((60-dis)/2) + 1;
+          dragonballs.get(j)[1] -= int((60-dis)/2) + 1;
         }
       } else {
         // same direction
-        if (circles.get(i)[4] > circles.get(j)[4]) {
+        if (dragonballs.get(i)[4] > dragonballs.get(j)[4]) {
           // i hits j
-          circles.get(i)[4] -= circles.get(j)[4];
-          circles.get(j)[4] += circles.get(i)[4] + circles.get(j)[3];
-          if (circles.get(i)[4] < 0) {
-            circles.get(j)[1] -= int(60-dis) + 1;
+          dragonballs.get(i)[4] -= dragonballs.get(j)[4];
+          dragonballs.get(j)[4] += dragonballs.get(i)[4] + dragonballs.get(j)[3];
+          if (dragonballs.get(i)[4] < 0) {
+            dragonballs.get(j)[1] -= int(60-dis) + 1;
           } else {
-            circles.get(j)[1] += int(60-dis) + 1;
+            dragonballs.get(j)[1] += int(60-dis) + 1;
           }
         } else {
           // j hits i
-          circles.get(j)[4] -= circles.get(i)[4];
-          circles.get(i)[4] += circles.get(j)[4] + circles.get(i)[3];
-          if (circles.get(j)[4] < 0) {
-            circles.get(i)[1] -= int(60-dis) + 1;
+          dragonballs.get(j)[4] -= dragonballs.get(i)[4];
+          dragonballs.get(i)[4] += dragonballs.get(j)[4] + dragonballs.get(i)[3];
+          if (dragonballs.get(j)[4] < 0) {
+            dragonballs.get(i)[1] -= int(60-dis) + 1;
           } else {
-            circles.get(i)[1] += int(60-dis) + 1;
+            dragonballs.get(i)[1] += int(60-dis) + 1;
           }
         }
       }
       
       // update z
-      if (circles.get(i)[5] * circles.get(j)[5] < 0) {
+      if (dragonballs.get(i)[5] * dragonballs.get(j)[5] < 0) {
         // opposite directions, swaps speeds
-        int tempSpeed = circles.get(i)[4];
-        circles.get(i)[5] = circles.get(j)[5];
-        circles.get(j)[5] = tempSpeed;
-        if (circles.get(i)[5] < 0) {
-          circles.get(i)[2] -= int((60-dis)/2) + 1;
-          circles.get(j)[2] += int((60-dis)/2) + 1;
+        int tempSpeed = dragonballs.get(i)[4];
+        dragonballs.get(i)[5] = dragonballs.get(j)[5];
+        dragonballs.get(j)[5] = tempSpeed;
+        if (dragonballs.get(i)[5] < 0) {
+          dragonballs.get(i)[2] -= int((60-dis)/2) + 1;
+          dragonballs.get(j)[2] += int((60-dis)/2) + 1;
         } else {
-          circles.get(i)[2] += int((60-dis)/2) + 1;
-          circles.get(j)[2] -= int((60-dis)/2) + 1;
+          dragonballs.get(i)[2] += int((60-dis)/2) + 1;
+          dragonballs.get(j)[2] -= int((60-dis)/2) + 1;
         }
       } else {
         // same direction
-        if (circles.get(i)[5] > circles.get(j)[5]) {
+        if (dragonballs.get(i)[5] > dragonballs.get(j)[5]) {
           // i hits j
-          circles.get(i)[5] -= circles.get(j)[5];
-          circles.get(j)[5] += circles.get(i)[5] + circles.get(j)[3];
-          if (circles.get(i)[5] < 0) {
-            circles.get(j)[2] -= int(60-dis) + 1;
+          dragonballs.get(i)[5] -= dragonballs.get(j)[5];
+          dragonballs.get(j)[5] += dragonballs.get(i)[5] + dragonballs.get(j)[3];
+          if (dragonballs.get(i)[5] < 0) {
+            dragonballs.get(j)[2] -= int(60-dis) + 1;
           } else {
-            circles.get(j)[2] += int(60-dis) + 1;
+            dragonballs.get(j)[2] += int(60-dis) + 1;
           }
         } else {
           // j hits i
-          circles.get(j)[5] -= circles.get(i)[5];
-          circles.get(i)[5] += circles.get(j)[5] + circles.get(i)[3];
-          if (circles.get(j)[5] < 0) {
-            circles.get(i)[2] -= int(60-dis) + 1;
+          dragonballs.get(j)[5] -= dragonballs.get(i)[5];
+          dragonballs.get(i)[5] += dragonballs.get(j)[5] + dragonballs.get(i)[3];
+          if (dragonballs.get(j)[5] < 0) {
+            dragonballs.get(i)[2] -= int(60-dis) + 1;
           } else {
-            circles.get(i)[2] += int(60-dis) + 1;
+            dragonballs.get(i)[2] += int(60-dis) + 1;
           }
         }
       }
@@ -174,40 +174,86 @@ void handleCollisions(int i) {
 }
 
 
-void draw() {
+void energy_decay() {
+ for (int i = 0; i < dragonballs.size(); i++) {
+   dragonballs.get(i)[6] += 1;
+   if (dragonballs.get(i)[6] % 100 == 0) {
+     if (dragonballs.get(i)[3] == 0) {
+       dragonballs.get(i)[3] = 0;
+     } else if (dragonballs.get(i)[3] > 0) {
+       dragonballs.get(i)[3] = dragonballs.get(i)[3] - 1;
+     } else {
+       dragonballs.get(i)[3] = dragonballs.get(i)[3] + 1;
+     }
+     if (dragonballs.get(i)[4] == 0) {
+       dragonballs.get(i)[4] = 0;
+     } else if (dragonballs.get(i)[4] > 0) {
+       dragonballs.get(i)[4] = dragonballs.get(i)[4] - 1;
+     } else {
+       dragonballs.get(i)[4] = dragonballs.get(i)[4] + 1;
+     }
+     if (dragonballs.get(i)[5] == -1) {
+       dragonballs.get(i)[5] = -1;
+     } else if (dragonballs.get(i)[5] == 1) {
+       dragonballs.get(i)[5] = 1;
+     } else if (dragonballs.get(i)[5] > 0) {
+       dragonballs.get(i)[5] = dragonballs.get(i)[5] - 1;
+     } else {
+       dragonballs.get(i)[5] = dragonballs.get(i)[5] + 1;
+     }
+   }
+ }
+}
+
+
+void draw() { 
   drawBox();
-  ArrayList<Integer> colors = new ArrayList<Integer>();
-  colors.add(color(252, 30, 69));
-  colors.add(color(42, 191, 248));
-  colors.add(color(255, 253, 56));
-  colors.add(color(116, 92, 157));
-  colors.add(color(161, 233, 91));
   lights();
-  for (int i = 0; i < circles.size(); i++) {
-    if (circles.get(i)[2] >= 0) {
+  
+  // Decay energy
+  energy_decay();
+  
+  for (int i = 0; i < dragonballs.size(); i++) {
+    if (dragonballs.get(i)[2] >= 0) {
       // bounced out of the box, delete ball
-      circles.remove(i);
+      dragonballs.remove(i);
       i--;
     } else {
       pushMatrix();
       noStroke();
       
       // handle wall collisons
-      circles.set(i, bounceOffWalls(circles.get(i)));
+      dragonballs.set(i, bounceOffWalls(dragonballs.get(i)));
       
       // Adds gravity
       addGravity(i);
       
-      translate(circles.get(i)[0], circles.get(i)[1], circles.get(i)[2]);
-      fill(circles.get(i)[6], circles.get(i)[7], circles.get(i)[8]);
-      sphere(radius);
+      translate(dragonballs.get(i)[0], dragonballs.get(i)[1], dragonballs.get(i)[2]);
+      
+      PShape sphere = createShape(SPHERE, radius);
+      PImage img = loadImage("img/4star.png");
+      sphere.setTexture(img);
+      
+      // Add rotation
+      sphere.rotateY(radians(100));
+      sphere.rotateZ(radians(180));
+      if (dragonballs.get(i)[3] != 0 || dragonballs.get(i)[4] != 0 || dragonballs.get(i)[5] != 0) {
+        if (dragonballs.get(i)[5] > 0) {
+          dragonballs.get(i)[7] = (dragonballs.get(i)[7] - 2) % 360;
+        } else {
+          dragonballs.get(i)[7] = (dragonballs.get(i)[7] + 2) % 360;
+        }
+        sphere.rotateX(radians(dragonballs.get(i)[7]));
+      }
+      
+      shape(sphere);
       
       // update X coordinate
-      circles.get(i)[0] += circles.get(i)[3];
+      dragonballs.get(i)[0] += dragonballs.get(i)[3];
       // update Y coordinate
-      circles.get(i)[1] += circles.get(i)[4];
+      dragonballs.get(i)[1] += dragonballs.get(i)[4];
       // update Z coordinate
-      circles.get(i)[2] += circles.get(i)[5];
+      dragonballs.get(i)[2] += dragonballs.get(i)[5];
       
       popMatrix();
       
@@ -219,8 +265,17 @@ void draw() {
 
 
 void mouseReleased() {
-  // Create new ball object with random colour
-  // xStart, yStart, zStart, xSpeed, ySpeed, zSpeed, redVal, greenVal, blueVal
-  int[] circle = {mouseX, mouseY, -400, int(random(-25, 25)), int(random(-15, 15)), int(random(-15, 15)), int(random(0, 255)), int(random(0, 255)), int(random(0, 255)), };
-  circles.add(circle);
+  // Create new dragonball object with random colour
+  
+  // Error control for zero speeds
+  int x = int(random(-25, 25));
+  x = x != 0 ? x : 1;
+  int y = int(random(-15, 15));
+  y = y != 0 ? y : 1;
+  int z = int(random(-15, 15));
+  z = y != 0 ? z : 1;
+  
+  // xStart, yStart, zStart, xSpeed, ySpeed, zSpeed, enegeryCounter, xRotate
+  int[] dragonball = {mouseX, mouseY, -400, x, y, z, 0, 0};
+  dragonballs.add(dragonball);
 }
