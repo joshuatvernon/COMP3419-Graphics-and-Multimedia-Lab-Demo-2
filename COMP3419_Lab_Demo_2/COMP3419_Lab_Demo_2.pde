@@ -55,6 +55,8 @@ void addGravity(int i) {
 
 
 void handleCollisions(int i) {
+  // TODO - change rotation based upon wall collisions . . .
+  
   // handle collision between balls
   for (int j = i + 1; j < dragonballs.size(); j++) {
     // distance
@@ -231,19 +233,33 @@ void draw() {
       translate(dragonballs.get(i)[0], dragonballs.get(i)[1], dragonballs.get(i)[2]);
       
       PShape sphere = createShape(SPHERE, radius);
-      PImage img = loadImage("img/4star.png");
+      PImage img = loadImage("img/" + dragonballs.get(i)[11] + "star.png");
       sphere.setTexture(img);
       
       // Add rotation
-      sphere.rotateY(radians(100));
-      sphere.rotateZ(radians(180));
-      if (dragonballs.get(i)[3] != 0 || dragonballs.get(i)[4] != 0 || dragonballs.get(i)[5] != 0) {
-        if (dragonballs.get(i)[5] > 0) {
-          dragonballs.get(i)[7] = (dragonballs.get(i)[7] - 2) % 360;
-        } else {
-          dragonballs.get(i)[7] = (dragonballs.get(i)[7] + 2) % 360;
+      // TODO -- finish rotation based upon wall collisions + add primary rotation speed and secondary rotation speeds
+      if (dragonballs.get(i)[10] == 0) {
+        // rotate on x-axis e.g. forwards or backwards
+        sphere.rotateY(radians(dragonballs.get(i)[8]));
+        sphere.rotateZ(radians(dragonballs.get(i)[9]));
+        if (dragonballs.get(i)[3] != 0 || dragonballs.get(i)[4] != 0 || dragonballs.get(i)[5] != 0) {
+          if (dragonballs.get(i)[5] > 0) {
+            dragonballs.get(i)[7] = (dragonballs.get(i)[7] - 2) % 360;
+          } else {
+            dragonballs.get(i)[7] = (dragonballs.get(i)[7] + 2) % 360;
+          }
+          sphere.rotateX(radians(dragonballs.get(i)[7]));
         }
+      } else if (dragonballs.get(i)[10] == 1) {
+        // rotate on z-axis e.g. side to side
         sphere.rotateX(radians(dragonballs.get(i)[7]));
+        sphere.rotateY(radians(dragonballs.get(i)[8]));
+        // TODO
+      } else {
+        // rotate on y-axis e.g. around if got hit by ball
+        sphere.rotateX(radians(dragonballs.get(i)[7]));
+        sphere.rotateZ(radians(dragonballs.get(i)[9]));
+        // TODO
       }
       
       shape(sphere);
@@ -275,7 +291,7 @@ void mouseReleased() {
   int z = int(random(-15, 15));
   z = y != 0 ? z : 1;
   
-  // xStart, yStart, zStart, xSpeed, ySpeed, zSpeed, enegeryCounter, xRotate
-  int[] dragonball = {mouseX, mouseY, -400, x, y, z, 0, 0};
+  // xStart, yStart, zStart, xSpeed, ySpeed, zSpeed, enegeryCounter, xRotate, yRotate, zRotate, rotateDirection, stars
+  int[] dragonball = {mouseX, mouseY, -400, x, y, z, 0, 0, 100, 180, 0, int(random(1, 7))};
   dragonballs.add(dragonball);
 }
